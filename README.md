@@ -10,8 +10,8 @@ milliseconds of JavaScript, and every pixel is scored on the GPU.
 
 ## Using it
 
-1. Zoom in until you can see individual fields and streets, and type what you
-   are looking for (golf courses, solar farms, clearcuts…).
+1. Zoom in until you can see individual fields and streets, and name your
+   class (golf course, solar farm, clearcut…).
 2. Click a few examples of it. They show as green markers.
 3. Shift-click things that are not it, especially wrong highlights (red).
 4. Raise the match threshold for a stricter map.

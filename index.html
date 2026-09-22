@@ -15,7 +15,7 @@
       <label>
         View
         <select id="mode">
-          <option value="classify" selected>Find something (train a classifier)</option>
+          <option value="classify" selected>Classify (train by example)</option>
           <option value="similarity">Find similar spots</option>
           <option value="rgb">Embeddings as color</option>
         </select>
@@ -23,8 +23,8 @@
 
       <fieldset id="classify-controls" hidden>
         <label>
-          What are you looking for?
-          <input id="class-name" type="text" placeholder="e.g. golf courses, solar farms" />
+          Name this class
+          <input id="class-name" type="text" placeholder="e.g. golf course, solar farm" />
         </label>
         <details id="background-details">
           <summary id="background-summary"></summary>
