@@ -1,0 +1,130 @@
+@import 'maplibre-gl/dist/maplibre-gl.css';
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  font: 14px/1.4 system-ui, sans-serif;
+}
+
+#map {
+  position: absolute;
+  inset: 0;
+}
+
+#panel {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 280px;
+  max-height: calc(100vh - 24px);
+  overflow-y: auto;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  background: rgba(20, 20, 24, 0.88);
+  color: #eee;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#panel > * {
+  flex-shrink: 0;
+}
+
+#panel h1 {
+  font-size: 16px;
+  margin: 0;
+}
+
+#panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#panel .check {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+#panel .check output {
+  margin-left: auto;
+}
+
+#panel output {
+  float: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.row select {
+  flex: 1;
+  min-width: 0;
+}
+
+.hint ol {
+  margin: 4px 0 0;
+  padding-left: 18px;
+}
+
+.hint p {
+  margin: 0;
+}
+
+.hint,
+.attribution {
+  margin: 0;
+  color: #aaa;
+  font-size: 12px;
+}
+
+.attribution a {
+  color: #aaa;
+}
+
+.status {
+  margin: 0;
+  min-height: 1.4em;
+  color: #fc6;
+}
+
+#panel fieldset {
+  border: 1px solid #444;
+  border-radius: 6px;
+  margin: 0;
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+#panel fieldset[hidden] {
+  display: none;
+}
+
+.sample-marker.positive {
+  background: #2ecc71;
+}
+
+.sample-marker.negative {
+  background: #e74c3c;
+}
+
+.sample-marker {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #e0f;
+  box-shadow: 0 0 3px #000;
+}
