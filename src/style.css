@@ -108,6 +108,18 @@ body {
   gap: 8px;
 }
 
+#panel details summary {
+  cursor: pointer;
+  color: #ccc;
+  font-size: 13px;
+}
+
+#panel details[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
 #panel fieldset[hidden] {
   display: none;
 }

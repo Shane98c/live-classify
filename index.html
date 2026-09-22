@@ -26,23 +26,23 @@
           What are you looking for?
           <input id="class-name" type="text" placeholder="e.g. golf courses, solar farms" />
         </label>
-        <label>
-          Compare against (NLCD land cover)
-          <select id="background-class"></select>
-        </label>
-        <p class="hint">
-          Random spots of this land cover in view also count as "not it". It is
-          set from your first example; pick whatever your target is most often
-          confused with.
-        </p>
-        <div class="row">
-          <span id="background-count"></span>
-          <label class="check">
-            <input id="show-background" type="checkbox" />
-            Show
-          </label>
-          <button id="resample" type="button">Resample</button>
-        </div>
+        <details id="background-details">
+          <summary id="background-summary"></summary>
+          <p class="hint">
+            Random spots of this NLCD land cover in view also count as "not
+            it". It is set from your first example; change it to whatever your
+            target is most often confused with.
+          </p>
+          <select id="background-class" aria-label="Compare against"></select>
+          <div class="row">
+            <span id="background-count"></span>
+            <label class="check">
+              <input id="show-background" type="checkbox" />
+              Show
+            </label>
+            <button id="resample" type="button">Resample</button>
+          </div>
+        </details>
         <p id="model-stats" class="hint"></p>
         <div class="row">
           <button id="save" type="button">Save</button>

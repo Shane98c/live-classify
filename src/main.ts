@@ -58,6 +58,7 @@ const backgroundClass = $<HTMLSelectElement>("background-class");
 const backgroundCount = $<HTMLSpanElement>("background-count");
 const resampleButton = $<HTMLButtonElement>("resample");
 const showBackground = $<HTMLInputElement>("show-background");
+const backgroundSummary = $<HTMLElement>("background-summary");
 const modelStats = $<HTMLParagraphElement>("model-stats");
 const saveButton = $<HTMLButtonElement>("save");
 const exportButton = $<HTMLButtonElement>("export");
@@ -293,6 +294,14 @@ function updatePanel() {
     const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
     samplesLabel.textContent = `${plural(pos.length, "example")} · ${neg.length} not`;
     backgroundCount.textContent = `${background.length} random spots used`;
+    const chosen =
+      NLCD_CLASSES.find((c) => c.code === Number(backgroundClass.value))?.name ??
+      "";
+    backgroundSummary.textContent = background.length
+      ? `Comparing against: ${chosen} · change`
+      : pos.length
+        ? `Comparing against: ${chosen} (none in view) · change`
+        : "Comparing against: set by your first example";
     modelStats.textContent = model
       ? `Learning from ${plural(pos.length, "example")}, ${plural(neg.length, "counter-example")} and ${background.length} random spots.`
       : "Click an example to start.";
