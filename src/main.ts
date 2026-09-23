@@ -137,6 +137,10 @@ type Label = {
 };
 const labels: Label[] = [];
 let background: BackgroundSample[] = [];
+// Reads and sampling are asynchronous. These counters let a result that
+// arrives after the training was reset, or after a newer request, be dropped.
+let trainingGeneration = 0;
+let backgroundRequest = 0;
 let model: Model | null = null;
 
 // Each mode keeps its own threshold: a cosine similarity and a probability
@@ -405,20 +409,24 @@ function refreshSaved(selected?: string) {
 }
 
 async function resampleBackground() {
+  const request = ++backgroundRequest;
   status.textContent = "Sampling NLCD background…";
   try {
-    background = await sampleBackground(
+    const samples = await sampleBackground(
       map,
       layer,
       await nlcdLayer,
       Number(backgroundClass.value),
       BACKGROUND_COUNT,
     );
+    if (request !== backgroundRequest) return;
+    background = samples;
     const chosen = backgroundClass.selectedOptions[0]?.text ?? "that class";
     status.textContent = background.length
       ? zoomHint()
       : `No "${chosen}" in view to compare against. Pick another land cover above.`;
   } catch (err) {
+    if (request !== backgroundRequest) return;
     status.textContent = `Background sampling failed: ${(err as Error).message}`;
     console.error(err);
   }
@@ -438,7 +446,9 @@ async function onSimilarityClick(e: maplibregl.MapMouseEvent) {
 }
 
 async function onClassifyClick(e: maplibregl.MapMouseEvent) {
+  const generation = trainingGeneration;
   const embeddings = await readPatch(layer, e.lngLat.lng, e.lngLat.lat);
+  if (generation !== trainingGeneration) return;
   if (embeddings.length === 0) {
     status.textContent = "No embedding at that point";
     return;
@@ -447,6 +457,7 @@ async function onClassifyClick(e: maplibregl.MapMouseEvent) {
   const firstExample = positive && !labels.some((l) => l.positive);
   if (firstExample && background.length === 0) {
     const code = await nlcdClassAt(await nlcdLayer, e.lngLat.lng, e.lngLat.lat);
+    if (generation !== trainingGeneration) return;
     if (NLCD_CLASSES.some((c) => c.code === code)) {
       backgroundClass.value = String(code);
     }
@@ -487,6 +498,9 @@ function clearLabels() {
   labels.length = 0;
   background = [];
   model = null;
+  trainingGeneration++;
+  backgroundRequest++;
+  drawBackground();
 }
 
 clearButton.addEventListener("click", () => {
