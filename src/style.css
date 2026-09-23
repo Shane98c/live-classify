@@ -72,12 +72,6 @@ body {
   min-width: 0;
 }
 
-.tagline {
-  margin: -4px 0 0;
-  font-size: 12px;
-  color: #8fd3a8;
-}
-
 .hint ol {
   margin: 4px 0 0;
   padding-left: 18px;

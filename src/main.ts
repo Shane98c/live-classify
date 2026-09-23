@@ -245,7 +245,8 @@ function addMarker(lngLat: maplibregl.LngLat, kind?: "positive" | "negative") {
 
 const HINTS: Record<Mode, { intro: string; steps: string[] }> = {
   classify: {
-    intro: "Teach the map a new land cover class by example.",
+    intro:
+      "Teach the map a new land cover class by example. Everything runs in the browser.",
     steps: [
       "Zoom in until you can see individual fields and streets, and name your class.",
       "Click a few examples of it (green).",
